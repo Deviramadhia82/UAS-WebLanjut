@@ -1,0 +1,56 @@
+body {
+	background-image: url("/img/pat_04.png");
+	background-repeat: repeat;
+	max-width: 1920;
+	width: 100%;
+	max-height: 1080;
+	height: 100%;
+	color: black;
+	
+}
+
+.container {
+	margin-top: 4%;
+}
+
+.info{
+	margin-bottom: -1%;
+}
+
+.inner-content{
+	text-align: center;
+}
+
+.dropdown-item:hover{
+	background-color: #1c4094;
+}
+
+.kotak{
+	border: 10px double #1c4094;
+}
+
+.title{
+	margin-top: 20px;
+	font-weight: bold;
+}
+
+.konten {
+	width: 100%;
+	text-align: center;
+	margin-bottom: -45px;
+}
+
+.pict1 {
+	width: 300px;
+	height: 300px;
+    margin-top: -2%;
+}
+
+.navbar {
+	font-weight: bold;
+}
+
+h3 {
+	margin-top: 2%;
+	color: black;
+}
