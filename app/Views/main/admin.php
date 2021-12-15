@@ -102,8 +102,8 @@
                                 <td><?= $dt['insek']; ?></td>
                                 <td><?= $dt['wa']; ?></td>
                                 <td class="btn-class">
-                                    <button type="button" class="edit btn btn-warning btn-sm" data-toggle="modal" data-target="#update"><i class="fas fa-edit"></i>&nbsp;&nbsp;Ubah</button>
-                                    <button type="button" class="del btn btn-danger btn-sm" data-toggle="modal" data-target="#delete"><i class="far fa-trash-alt"></i>&nbsp;&nbsp;Hapus</button>
+                                    <button type="button" class="edit btn btn-warning btn-sm" data-toggle="modal" data-target="#update<?= $dt['id']; ?>"><i class="fas fa-edit"></i>&nbsp;&nbsp;Ubah</button>
+                                    <button type="button" class="del btn btn-danger btn-sm" data-toggle="modal" data-target="#delete<?= $dt['id']; ?>"><i class="far fa-trash-alt"></i>&nbsp;&nbsp;Hapus</button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -170,102 +170,108 @@
 
 
             <!-- EDIT -->
-            <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 style="color:black;" class="modal-title" id="exampleModalLabel">UPDATE DATA</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+            <?php $no = 0;
+            foreach ($hackathon as $dt) : $no++; ?>
+                <div class="modal fade" id="update<?= $dt['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 style="color:black;" class="modal-title" id="exampleModalLabel">UPDATE DATA</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <form action="<?= base_url('admin/update/' . $dt['id']); ?>" method="POST">
+                                <?= csrf_field(); ?>
+                                <input type="hidden" name="_method" value="UPDATE">
+                                <div class="modal-body bg-dark">
+                                    <div class="avatar">
+                                        <i class="edicon far fa-edit"></i>
+                                        <i class="book fas fa-book-open"></i>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="box-registry">
+                                            <i class="fas fa-envelope-open-text"></i>
+                                            <input type="email" placeholder="Email" name="email" value="<?= $dt['email']; ?>" autofocus required>
+                                        </div>
+
+                                        <div class="box-registry">
+                                            <i class="fas fa-child"></i>
+                                            <input type="name" placeholder="Nama Lengkap" name="nama" value="<?= $dt['nama']; ?>" required>
+                                        </div>
+
+                                        <div class="box-registry">
+                                            <i class="fas fa-building"></i>
+                                            <input type="text" placeholder="Asal Institusi/Sekolah" name="insek" value="<?= $dt['insek']; ?>" required>
+                                        </div>
+
+                                        <div class="box-registry">
+                                            <i class="fab fa-whatsapp"></i>
+                                            <input type="text" placeholder="No Whatsapp" name="wa" value="<?= $dt['wa']; ?>" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="button-class">
+                                        <button type="submit" name="update" class="btn btn-primary">
+                                            <i class="fas fa-check"></i>&nbsp;&nbsp;Ubah
+                                        </button>
+
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" class="button btn btn-danger">
+                                            <i class="fas fa-times"></i>&nbsp;&nbsp;Batal
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-
-                        <form action="<?= base_url('admin/update/'.$dt['id']); ?>" method="POST">
-                            <?= csrf_field(); ?>
-                            <input type="hidden" name="_method" value="UPDATE">
-                            <div class="modal-body bg-dark">
-                                <div class="avatar">
-                                    <i class="edicon far fa-edit"></i>
-                                    <i class="book fas fa-book-open"></i>
-                                </div>
-                                <div class="form-group">
-                                    <div class="box-registry">
-                                        <i class="fas fa-envelope-open-text"></i>
-                                        <input type="email" placeholder="Email" name="email" value="<?= $dt['email']; ?>" autofocus required>
-                                    </div>
-
-                                    <div class="box-registry">
-                                        <i class="fas fa-child"></i>
-                                        <input type="name" placeholder="Nama Lengkap" name="nama" value="<?= $dt['nama']; ?>" required>
-                                    </div>
-
-                                    <div class="box-registry">
-                                        <i class="fas fa-building"></i>
-                                        <input type="text" placeholder="Asal Institusi/Sekolah" name="insek" value="<?= $dt['insek']; ?>" required>
-                                    </div>
-
-                                    <div class="box-registry">
-                                        <i class="fab fa-whatsapp"></i>
-                                        <input type="text" placeholder="No Whatsapp" name="wa" value="<?= $dt['wa']; ?>" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <div class="button-class">
-                                    <button type="submit" name="update" class="btn btn-primary">
-                                        <i class="fas fa-check"></i>&nbsp;&nbsp;Ubah
-                                    </button>
-
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" class="button btn btn-danger">
-                                        <i class="fas fa-times"></i>&nbsp;&nbsp;Batal
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
                     </div>
                 </div>
-            </div>
+            <?php endforeach; ?>
 
 
 
             <!-- DELETE -->
-            <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 style="color:black;" class="modal-title" id="exampleModalLabel">HAPUS DATA</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+            <?php $no = 0;
+            foreach ($hackathon as $dt) : $no++; ?>
+                <div class="modal fade" id="delete<?= $dt['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 style="color:black;" class="modal-title" id="exampleModalLabel">HAPUS DATA</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <form action="<?= base_url('admin/delete/' . $dt['id']); ?>" method="POST">
+                                <?= csrf_field(); ?>
+                                <input type="hidden" name="_method" value="DELETE">
+                                <div class="modal-body bg-light">
+                                    <div class="avatar">
+                                        <i class="delicon far fa-trash-alt"></i>
+                                        <i class="book fas fa-book-open"></i>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5>Apakah anda yakin akan menghapus data ini?</h5>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="button-class">
+                                        <button type="submit" name="delete" class="btn btn-primary">
+                                            <i class="fas fa-check"></i>&nbsp;&nbsp;Hapus
+                                        </button>
+
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" class="button btn btn-danger">
+                                            <i class="fas fa-times"></i>&nbsp;&nbsp;Batal
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-
-                        <form action="<?= base_url('admin/delete/'. $dt['id']); ?>" method="POST">
-                            <?= csrf_field(); ?>
-                            <input type="hidden" name="_method" value="DELETE">
-                            <div class="modal-body bg-light">
-                                <div class="avatar">
-                                    <i class="delicon far fa-trash-alt"></i>
-                                    <i class="book fas fa-book-open"></i>
-                                </div>
-                                <div class="modal-body">
-                                    <h5>Apakah anda yakin akan menghapus data ini?</h5>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <div class="button-class">
-                                    <button type="submit" name="delete" class="btn btn-primary">
-                                        <i class="fas fa-check"></i>&nbsp;&nbsp;Hapus
-                                    </button>
-
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" class="button btn btn-danger">
-                                        <i class="fas fa-times"></i>&nbsp;&nbsp;Batal
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
                     </div>
                 </div>
-            </div>
+            <?php endforeach; ?>
 
         </div>
     </div>
